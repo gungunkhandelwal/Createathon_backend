@@ -8,7 +8,7 @@ class CategorySerializer(serializers.ModelSerializer):
         fields = ['id', 'name', 'description']
 
 class ChallengeSerializer(serializers.ModelSerializer):
-    category = CategorySerializer(read_only=True)
+    category = serializers.PrimaryKeyRelatedField(queryset=Category.objects.all())
 
     class Meta:
         model = Challenge

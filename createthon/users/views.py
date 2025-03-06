@@ -66,7 +66,6 @@ class AuthViewSet(viewsets.ViewSet):
     def logout(self, request):
         try:
             refresh_token = request.data.get('refresh')
-            print(refresh_token)
             if not refresh_token:
                 return Response(
                     {"error": "Refresh token is required"}, 
