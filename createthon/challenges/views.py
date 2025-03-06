@@ -8,37 +8,9 @@ from progress.models import UserProgress, Achievement, UserAchievement
 from challenges.serializers import (
     ChallengeSerializer, 
     CategorySerializer, 
-    UserProgressSerializer,
-    UserRegistrationSerializer,
-    CustomTokenObtainPairView,CustomTokenObtainPairSerializer
+    UserProgressSerializer
 )
 from progress.serializers import AchievementSerializer
-from rest_framework.generics import CreateAPIView
-
-class UserRegistrationView(CreateAPIView):
-    """
-    View for user registration
-    """
-    serializer_class = UserRegistrationSerializer
-    permission_classes = [permissions.AllowAny]
-
-    def create(self, request, *args, **kwargs):
-        serializer = self.get_serializer(data=request.data)
-        serializer.is_valid(raise_exception=True)
-        user = serializer.save()
-        
-        # Generate tokens for the newly registered user
-        refresh = CustomTokenObtainPairSerializer.get_token(user)
-        
-        return Response({
-            'user': {
-                'id': user.id,
-                'username': user.username,
-                'email': user.email
-            },
-            'refresh': str(refresh),
-            'access': str(refresh.access_token)
-        }, status=status.HTTP_201_CREATED)
 
 class CategoryViewSet(viewsets.ModelViewSet):
     """
