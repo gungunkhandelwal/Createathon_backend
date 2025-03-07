@@ -3,14 +3,14 @@ from rest_framework.routers import DefaultRouter
 
 from challenges.views import (
     CategoryViewSet, 
-    ChallengeViewSet, 
-    UserProgressViewSet
+    ChallengeViewSet,
+    ChallengeTagViewSet
 )
 
 router = DefaultRouter()
 router.register(r'categories', CategoryViewSet)
-router.register(r'challenge', ChallengeViewSet)
-router.register(r'progress', UserProgressViewSet, basename='userprogress')
+router.register(r'challenges', ChallengeViewSet)
+router.register(r'tags', ChallengeTagViewSet)
 
 urlpatterns = [
     path('', include(router.urls)),
